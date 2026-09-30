@@ -6,7 +6,7 @@ Smart India Hackathon 2026 · Problem Statement: `26178` · Team: `Aspirion`
 
 ![Status](https://img.shields.io/badge/status-prototype-blue) ![Python](https://img.shields.io/badge/python-3.10%2B-blue) ![Node](https://img.shields.io/badge/node-18%2B-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-> `docs/screenshots/dashboard.png`: replace with a screenshot of the command center
+> Prototype Link : https://suraksha-setu-jlv1mhalw-aditya-kumar-roys-projects.vercel.app/
 
 ---
 
