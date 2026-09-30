@@ -1,0 +1,354 @@
+{
+  "project": {
+    "name": "Environmental Intelligence Network",
+    "version": "1.0",
+    "mode": "prototype",
+    "description": "Mock real-time multi-hazard environmental monitoring data for SIH prototype."
+  },
+  "simulation": {
+    "enabled": true,
+    "refresh_interval_seconds": 10,
+    "time_acceleration": 60,
+    "last_updated": "2026-09-29T21:50:00+05:30"
+  },
+  "map": {
+    "center": {
+      "lat": 21.1458,
+      "lng": 79.0882
+    },
+    "zoom": 13,
+    "city": "Nagpur",
+    "bounds": {
+      "north": 21.22,
+      "south": 21.08,
+      "east": 79.18,
+      "west": 78.98
+    }
+  },
+  "sensor_nodes": [
+    {
+      "id": "NODE-NGP-001",
+      "name": "Nagpur Central Flood Node",
+      "location": {
+        "lat": 21.1458,
+        "lng": 79.0882
+      },
+      "status": "online",
+      "connectivity": "LoRaWAN",
+      "battery_percent": 87,
+      "sensors": {
+        "water_level_cm": 74.2,
+        "rainfall_mm_h": 48.6,
+        "temperature_c": 28.4,
+        "humidity_percent": 91.2,
+        "pressure_hpa": 1003.8,
+        "pm25_ug_m3": 62.4,
+        "pm10_ug_m3": 104.7,
+        "co_ppm": 1.8
+      },
+      "edge_ai": {
+        "model": "Flood-TFLite-v2",
+        "inference": "FLOOD_RISK",
+        "confidence": 0.94,
+        "latency_ms": 38,
+        "decision_source": "edge"
+      }
+    },
+    {
+      "id": "NODE-NGP-002",
+      "name": "Industrial Air Quality Node",
+      "location": {
+        "lat": 21.1692,
+        "lng": 79.1027
+      },
+      "status": "online",
+      "connectivity": "NB-IoT",
+      "battery_percent": 72,
+      "sensors": {
+        "water_level_cm": 4.1,
+        "rainfall_mm_h": 3.2,
+        "temperature_c": 31.8,
+        "humidity_percent": 68.4,
+        "pressure_hpa": 1007.1,
+        "pm25_ug_m3": 181.3,
+        "pm10_ug_m3": 292.5,
+        "co_ppm": 7.2
+      },
+      "edge_ai": {
+        "model": "AirQuality-TFLite-v1",
+        "inference": "POLLUTION_RISK",
+        "confidence": 0.91,
+        "latency_ms": 31,
+        "decision_source": "edge"
+      }
+    },
+    {
+      "id": "NODE-NGP-003",
+      "name": "Low-Lying Area Weather Node",
+      "location": {
+        "lat": 21.1324,
+        "lng": 79.0711
+      },
+      "status": "degraded",
+      "connectivity": "LoRaWAN",
+      "battery_percent": 39,
+      "sensors": {
+        "water_level_cm": 51.8,
+        "rainfall_mm_h": 72.3,
+        "temperature_c": 26.9,
+        "humidity_percent": 96.1,
+        "pressure_hpa": 998.6,
+        "pm25_ug_m3": 47.2,
+        "pm10_ug_m3": 78.4,
+        "co_ppm": 1.1
+      },
+      "edge_ai": {
+        "model": "Flood-TFLite-v2",
+        "inference": "SEVERE_FLOOD_RISK",
+        "confidence": 0.97,
+        "latency_ms": 42,
+        "decision_source": "edge"
+      }
+    },
+    {
+      "id": "NODE-NGP-004",
+      "name": "Urban Heat Node",
+      "location": {
+        "lat": 21.1587,
+        "lng": 79.0814
+      },
+      "status": "online",
+      "connectivity": "LoRaWAN",
+      "battery_percent": 91,
+      "sensors": {
+        "water_level_cm": 2.8,
+        "rainfall_mm_h": 0.0,
+        "temperature_c": 39.7,
+        "humidity_percent": 37.5,
+        "pressure_hpa": 1006.9,
+        "pm25_ug_m3": 88.1,
+        "pm10_ug_m3": 139.4,
+        "co_ppm": 2.4
+      },
+      "edge_ai": {
+        "model": "ExtremeWeather-TFLite-v1",
+        "inference": "HEAT_RISK",
+        "confidence": 0.89,
+        "latency_ms": 35,
+        "decision_source": "edge"
+      }
+    }
+  ],
+  "ai_inference": [
+    {
+      "id": "INF-001",
+      "node_id": "NODE-NGP-003",
+      "hazard": "flood",
+      "severity": "critical",
+      "confidence": 0.97,
+      "probability_percent": 94,
+      "reasoning": [
+        "Rapid water-level increase",
+        "High rainfall intensity",
+        "Low atmospheric pressure",
+        "High humidity"
+      ],
+      "recommended_action": "Issue immediate local warning and notify emergency response team.",
+      "model": "Flood-TFLite-v2",
+      "inference_location": "edge"
+    },
+    {
+      "id": "INF-002",
+      "node_id": "NODE-NGP-002",
+      "hazard": "air_pollution",
+      "severity": "high",
+      "confidence": 0.91,
+      "probability_percent": 88,
+      "reasoning": [
+        "PM2.5 above threshold",
+        "PM10 concentration elevated",
+        "CO concentration rising"
+      ],
+      "recommended_action": "Publish air-quality warning and identify affected zone.",
+      "model": "AirQuality-TFLite-v1",
+      "inference_location": "edge"
+    }
+  ],
+  "predictions": [
+    {
+      "id": "PRED-001",
+      "node_id": "NODE-NGP-003",
+      "hazard": "flood",
+      "forecast_horizon_hours": 6,
+      "risk_probability_percent": 91,
+      "predicted_water_level_cm": [
+        58,
+        67,
+        79,
+        91,
+        104,
+        118
+      ],
+      "expected_peak_time": "2026-09-30T02:00:00+05:30",
+      "model": "XGBoost-LSTM-Fusion",
+      "confidence": 0.9
+    },
+    {
+      "id": "PRED-002",
+      "node_id": "NODE-NGP-004",
+      "hazard": "extreme_heat",
+      "forecast_horizon_hours": 12,
+      "risk_probability_percent": 82,
+      "predicted_temperature_c": [
+        40.1,
+        40.8,
+        41.3,
+        41.7,
+        42.0
+      ],
+      "expected_peak_time": "2026-09-30T14:00:00+05:30",
+      "model": "XGBoost-Weather-v1",
+      "confidence": 0.86
+    }
+  ],
+  "risk_zones": [
+    {
+      "id": "ZONE-001",
+      "name": "Low-Lying Flood Zone",
+      "hazard": "flood",
+      "risk_score": 94,
+      "severity": "critical",
+      "affected_population_estimate": 4200,
+      "center": {
+        "lat": 21.1324,
+        "lng": 79.0711
+      },
+      "radius_m": 850
+    },
+    {
+      "id": "ZONE-002",
+      "name": "Industrial Pollution Zone",
+      "hazard": "air_pollution",
+      "risk_score": 81,
+      "severity": "high",
+      "affected_population_estimate": 6800,
+      "center": {
+        "lat": 21.1692,
+        "lng": 79.1027
+      },
+      "radius_m": 1100
+    }
+  ],
+  "alerts": [
+    {
+      "id": "ALT-001",
+      "timestamp": "2026-09-29T21:48:12+05:30",
+      "hazard": "flood",
+      "severity": "critical",
+      "title": "Flash Flood Risk Detected",
+      "message": "Rapid water-level rise detected. Severe flooding is predicted within the next 6 hours.",
+      "node_id": "NODE-NGP-003",
+      "risk_score": 94,
+      "confidence": 0.97,
+      "channels": [
+        "local_buzzer",
+        "dashboard",
+        "push",
+        "sms"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "ALT-002",
+      "timestamp": "2026-09-29T21:42:03+05:30",
+      "hazard": "air_pollution",
+      "severity": "high",
+      "title": "Air Quality Alert",
+      "message": "PM2.5 and PM10 concentrations have exceeded safe thresholds.",
+      "node_id": "NODE-NGP-002",
+      "risk_score": 81,
+      "confidence": 0.91,
+      "channels": [
+        "dashboard",
+        "push",
+        "sms"
+      ],
+      "status": "active"
+    }
+  ],
+  "street_view_alerts": [
+    {
+      "id": "SV-001",
+      "alert_id": "ALT-001",
+      "location": {
+        "lat": 21.1324,
+        "lng": 79.0711
+      },
+      "road_name": "Low-Lying Area Main Road",
+      "status": "FLOOD_RISK",
+      "water_depth_estimate_cm": 32,
+      "visibility": "reduced",
+      "recommended_action": "Avoid route",
+      "street_view": {
+        "provider": "Google Street View",
+        "mode": "prototype_reference",
+        "url": "https://www.google.com/maps"
+      }
+    },
+    {
+      "id": "SV-002",
+      "alert_id": "ALT-002",
+      "location": {
+        "lat": 21.1692,
+        "lng": 79.1027
+      },
+      "road_name": "Industrial Corridor",
+      "status": "POLLUTION_ALERT",
+      "recommended_action": "Avoid prolonged outdoor exposure",
+      "street_view": {
+        "provider": "Google Street View",
+        "mode": "prototype_reference",
+        "url": "https://www.google.com/maps"
+      }
+    }
+  ],
+  "telemetry_history": {
+    "NODE-NGP-003": [
+      {
+        "time": "20:00",
+        "water_level_cm": 21,
+        "rainfall_mm_h": 31
+      },
+      {
+        "time": "20:30",
+        "water_level_cm": 28,
+        "rainfall_mm_h": 44
+      },
+      {
+        "time": "21:00",
+        "water_level_cm": 37,
+        "rainfall_mm_h": 57
+      },
+      {
+        "time": "21:30",
+        "water_level_cm": 46,
+        "rainfall_mm_h": 69
+      },
+      {
+        "time": "21:50",
+        "water_level_cm": 51.8,
+        "rainfall_mm_h": 72.3
+      }
+    ]
+  },
+  "system_health": {
+    "total_nodes": 4,
+    "online_nodes": 3,
+    "degraded_nodes": 1,
+    "offline_nodes": 0,
+    "mqtt_status": "connected",
+    "database_status": "healthy",
+    "ai_service_status": "healthy",
+    "last_sync": "2026-09-29T21:50:00+05:30"
+  }
+}
